@@ -23,11 +23,10 @@ var app = builder.Build();
 
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+
 
 
 
@@ -42,12 +41,12 @@ app.UseRouting();
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
-//app.MapGet("/", () =>
-//{
-//    var contentRoot = builder.Environment.ContentRootPath;
-//    var indexHtmlPath = Path.Combine(contentRoot, "wwwroot", "index.html");
-//    return File.ReadAllText(indexHtmlPath);
-//});
+app.MapGet("/", () =>
+{
+    var contentRoot = builder.Environment.ContentRootPath;
+    var indexHtmlPath = Path.Combine(contentRoot, "wwwroot", "index.html");
+    return File.ReadAllText(indexHtmlPath);
+}).WithTags("Hello world");
 
 app.MapPost("/notas", async (Notas notas, IEmailService _emailService) =>
 {
