@@ -363,4 +363,5 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # Arquivos de configuração local
-appsettings.Development.json
+LankApi/appsettings.Development.json
+
