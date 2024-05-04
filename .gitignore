@@ -365,3 +365,4 @@ FodyWeavers.xsd
 # Arquivos de configuração local
 LankApi/appsettings.Development.json
 
+/LankApi/appsettings.Development.json
