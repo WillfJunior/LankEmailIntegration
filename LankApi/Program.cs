@@ -43,9 +43,10 @@ app.UseStaticFiles();
 
 app.MapGet("/", () =>
 {
-
-    return Results.Ok("Hello world");
-}).WithTags("Hello world");
+    var contentRoot = builder.Environment.ContentRootPath;
+    var indexHtmlPath = Path.Combine(contentRoot, "wwwroot", "index.html");
+    return File.ReadAllText(indexHtmlPath);
+});
 
 app.MapPost("/notas", async (Notas notas, IEmailService _emailService) =>
 {
