@@ -30,7 +30,7 @@ jobs:
           sed -i "s/\${DB_PORT}/${{ secrets.DB_PORT }}/g" ./app/appsettings.json
           sed -i "s/\${DB_USERNAME}/${{ secrets.DB_USERNAME }}/g" ./app/appsettings.json
           sed -i "s/\${DB_NAME}/${{ secrets.DB_NAME }}/g" ./app/appsettings.json
-          sed -i "s|\(\"Pwd\": \"\)[^\"]*\"|\1${{ secrets.DB_PASSWORD }}\"|g" ./app/appsettings.json
+          sed -i "s/\${DB_PASSWORD}/${{ secrets.DB_PASSWORD }}/g" ./app/appsettings.json
           sed -i "s/\${EMAIL_REMETENTE}/${{ secrets.EMAIL_REMETENTE }}/g" ./app/appsettings.json
           sed -i "s/\${EMAIL_DESTINATARIO}/${{ secrets.EMAIL_DESTINATARIO }}/g" ./app/appsettings.json
           sed -i "s/\${EMAIL_COPIA}/${{ secrets.EMAIL_COPIA }}/g" ./app/appsettings.json
