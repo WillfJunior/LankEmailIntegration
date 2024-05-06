@@ -41,12 +41,12 @@ app.UseRouting();
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
-app.MapGet("/", () =>
-{
-    var contentRoot = builder.Environment.ContentRootPath;
-    var indexHtmlPath = Path.Combine(contentRoot, "wwwroot", "index.html");
-    return File.ReadAllText(indexHtmlPath);
-});
+// app.MapGet("/", () =>
+// {
+//     var contentRoot = builder.Environment.ContentRootPath;
+//     var indexHtmlPath = Path.Combine(contentRoot, "wwwroot", "index.html");
+//     return File.ReadAllText(indexHtmlPath);
+// });
 
 app.MapPost("/notas", async (Notas notas, IEmailService _emailService) =>
 {
