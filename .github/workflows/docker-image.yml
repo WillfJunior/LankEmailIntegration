@@ -28,22 +28,21 @@ jobs:
         run: chmod 666 ./app/appsettings.json
         
       - name: Substitute variables in appsettings.json
-        run: |
-            sed -i "s/\${DB_SERVER}/${{ secrets.DB_SERVER }}/g" ./app/appsettings.json
-            sed -i "s/\${DB_PORT}/${{ secrets.DB_PORT }}/g" ./app/appsettings.json
-            sed -i "s/\${DB_USERNAME}/${{ secrets.DB_USERNAME }}/g" ./app/appsettings.json
-            sed -i "s/\${DB_PASSWORD}/${{ secrets.DB_PASSWORD }}/g" ./app/appsettings.json
-            sed -i "s/\${DB_NAME}/${{ secrets.DB_NAME }}/g" ./app/appsettings.json
-            sed -i "s/\${EMAIL_REMETENTE}/${{ secrets.EMAIL_REMETENTE }}/g" ./app/appsettings.json
-            sed -i "s/\${EMAIL_DESTINATARIO}/${{ secrets.EMAIL_DESTINATARIO }}/g" ./app/appsettings.json
-            sed -i "s/\${EMAIL_COPIA}/${{ secrets.EMAIL_COPIA }}/g" ./app/appsettings.json
-            sed -i "s/\${EMAIL_SMTP}/${{ secrets.EMAIL_SMTP }}/g" ./app/appsettings.json
-            sed -i "s/\${EMAIL_PORTA}/${{ secrets.EMAIL_PORTA }}/g" ./app/appsettings.json
-
-      - name: Show replaced appsettings.json
-        run: cat ./app/appsettings.json
-
-      
+        uses: microsoft/variable-substitution@v1
+        with:
+          inputFile: './app/appsettings.json'
+          outputDir: './app/'
+        env:
+          DB_SERVER: ${{ secrets.DB_SERVER }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+          DB_USERNAME: ${{ secrets.DB_USERNAME }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          EMAIL_REMETENTE: ${{ secrets.EMAIL_REMETENTE }}
+          EMAIL_DESTINATARIO: ${{ secrets.EMAIL_DESTINATARIO }}
+          EMAIL_COPIA: ${{ secrets.EMAIL_COPIA }}
+          EMAIL_SMTP: ${{ secrets.EMAIL_SMTP }}
+          EMAIL_PORTA: ${{ secrets.EMAIL_PORTA }}
 
       - name: Docker Login
         uses: docker/login-action@v2
