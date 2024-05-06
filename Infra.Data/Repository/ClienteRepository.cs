@@ -81,7 +81,7 @@ namespace Infra.Data.Repository
                 catch (Exception ex)
                 {
 
-                    throw new ArgumentException(ex.Message);
+                    throw new ArgumentException($"{ex.Message} - _{_context.GetConnectionString()}");
                 }
                 finally
                 {
