@@ -24,7 +24,7 @@ namespace Infra.Data
             Password = _configuration.GetSection("EnvDB:Password").Value;
             Database = _configuration.GetSection("EnvDB:DataBase").Value;
             
-            return $"Server={Server};Port={Port};Uid={Username};Pwd={Password};Database={Database}";
+            return $"Server={Server};Port=41890;Uid={Username};Pwd={Password};Database={Database}";
         }
     }
 }
