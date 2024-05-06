@@ -24,9 +24,9 @@ jobs:
       - name: Publish the .NET application
         run: dotnet publish -c Release -o ./app
 
-      - name: Check permissions of appsettings.json
-        run: ls -l ./app/appsettings.json
-
+      - name: Change permissions of appsettings.json
+        run: chmod 666 ./app/appsettings.json
+        
       - name: Substitute variables in appsettings.json
         run: |
             sed -i "s/\${DB_SERVER}/${{ secrets.DB_SERVER }}/g" ./app/appsettings.json
