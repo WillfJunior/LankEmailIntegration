@@ -26,6 +26,19 @@ jobs:
 
       - name: Change permissions of appsettings.json
         run: chmod 666 ./app/appsettings.json
+
+      - name: Debug variáveis de ambiente
+        run: |
+          echo "DB_SERVER: ${{ secrets.DB_SERVER }}"
+          echo "DB_PORT: ${{ secrets.DB_PORT }}"
+          echo "DB_USERNAME: ${{ secrets.DB_USERNAME }}"
+          echo "DB_PASSWORD: ${{ secrets.DB_PASSWORD }}"
+          echo "DB_NAME: ${{ secrets.DB_NAME }}"
+          echo "EMAIL_REMETENTE: ${{ secrets.EMAIL_REMETENTE }}"
+          echo "EMAIL_DESTINATARIO: ${{ secrets.EMAIL_DESTINATARIO }}"
+          echo "EMAIL_COPIA: ${{ secrets.EMAIL_COPIA }}"
+          echo "EMAIL_SMTP: ${{ secrets.EMAIL_SMTP }}"
+          echo "EMAIL_PORTA: ${{ secrets.EMAIL_PORTA }}"
         
       - name: Substitute variables in appsettings.json
         uses: microsoft/variable-substitution@v1
