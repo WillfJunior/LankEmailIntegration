@@ -30,8 +30,7 @@ jobs:
       - name: Substitute variables in appsettings.json
         uses: microsoft/variable-substitution@v1
         with:
-          inputFile: './app/appsettings.json'
-          outputDir: './app/'
+          files: './app/appsettings.json'
         env:
           DB_SERVER: ${{ secrets.DB_SERVER }}
           DB_PORT: ${{ secrets.DB_PORT }}
