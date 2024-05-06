@@ -17,14 +17,15 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 6.0.x
-
-      
-          
+  
       - name: Build the .NET application
         run: dotnet build -c Release
 
       - name: Publish the .NET application
         run: dotnet publish -c Release -o ./app
+
+      - name: Check permissions of appsettings.json
+        run: ls -l ./app/appsettings.json
 
       - name: Substitute variables in appsettings.json
         run: |
