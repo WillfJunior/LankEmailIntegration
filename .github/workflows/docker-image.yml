@@ -23,6 +23,9 @@ jobs:
       - name: Build the .NET application
         run: dotnet build -c Release
 
+      - name: Publish the .NET application
+        run: dotnet publish -c Release -o ./app
+
       - name: Substitute variables in appsettings.json
         run: |
             sed -i "s/\${DB_SERVER}/${{ secrets.DB_SERVER }}/g" ./app/appsettings.json
@@ -38,9 +41,6 @@ jobs:
 
       - name: Show replaced appsettings.json
         run: cat ./app/appsettings.json
-
-      - name: Publish the .NET application
-        run: dotnet publish -c Release -o ./app
 
       
 
