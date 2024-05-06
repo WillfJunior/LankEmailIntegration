@@ -1,11 +1,7 @@
 #See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
-# Copia o appsettings.json para dentro do contêiner
-COPY ./appsettings.json /path/to/appsettings.json
 
-# Altera as permissões do appsettings.json
-RUN chmod 666 /path/to/appsettings.json
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
@@ -21,7 +17,11 @@ RUN dotnet restore "./LankApi/./LankApi.csproj"
 COPY . .
 WORKDIR "/src/LankApi"
 RUN dotnet build "./LankApi.csproj" -c $BUILD_CONFIGURATION -o /app/build
+# Copia o appsettings.json para dentro do contêiner
+COPY ./appsettings.json /path/to/appsettings.json
 
+# Altera as permissões do appsettings.json
+RUN chmod 666 /path/to/appsettings.json
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "./LankApi.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
