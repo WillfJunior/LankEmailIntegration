@@ -18,6 +18,8 @@ builder.Services.AddScoped<LankContext>();
 
 builder.Services.AddCors();
 
+builder.Configuration.AddEnvironmentVariables();
+
 var app = builder.Build();
 
 
