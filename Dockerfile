@@ -17,11 +17,7 @@ RUN dotnet restore "./LankApi/./LankApi.csproj"
 COPY . .
 WORKDIR "/src/LankApi"
 RUN dotnet build "./LankApi.csproj" -c $BUILD_CONFIGURATION -o /app/build
-# Copia o appsettings.json para dentro do contêiner
-COPY ./appsettings.json /path/to/appsettings.json
 
-# Altera as permissões do appsettings.json
-RUN chmod 666 /path/to/appsettings.json
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "./LankApi.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
