@@ -17,44 +17,28 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 6.0.x
-  
+          
       - name: Build the .NET application
         run: dotnet build -c Release
 
       - name: Publish the .NET application
         run: dotnet publish -c Release -o ./app
 
-      - name: Change permissions of appsettings.json
-        run: chmod 666 ./app/appsettings.json
-
-      - name: Debug variáveis de ambiente
-        run: |
-          echo "DB_SERVER: ${{ secrets.DB_SERVER }}"
-          echo "DB_PORT: ${{ secrets.DB_PORT }}"
-          echo "DB_USERNAME: ${{ secrets.DB_USERNAME }}"
-          echo "DB_PASSWORD: ${{ secrets.DB_PASSWORD }}"
-          echo "DB_NAME: ${{ secrets.DB_NAME }}"
-          echo "EMAIL_REMETENTE: ${{ secrets.EMAIL_REMETENTE }}"
-          echo "EMAIL_DESTINATARIO: ${{ secrets.EMAIL_DESTINATARIO }}"
-          echo "EMAIL_COPIA: ${{ secrets.EMAIL_COPIA }}"
-          echo "EMAIL_SMTP: ${{ secrets.EMAIL_SMTP }}"
-          echo "EMAIL_PORTA: ${{ secrets.EMAIL_PORTA }}"
-        
       - name: Substitute variables in appsettings.json
-        uses: microsoft/variable-substitution@v1
-        with:
-          files: './app/appsettings.json'
-        env:
-          DB_SERVER: ${{ secrets.DB_SERVER }}
-          DB_PORT: ${{ secrets.DB_PORT }}
-          DB_USERNAME: ${{ secrets.DB_USERNAME }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          DB_NAME: ${{ secrets.DB_NAME }}
-          EMAIL_REMETENTE: ${{ secrets.EMAIL_REMETENTE }}
-          EMAIL_DESTINATARIO: ${{ secrets.EMAIL_DESTINATARIO }}
-          EMAIL_COPIA: ${{ secrets.EMAIL_COPIA }}
-          EMAIL_SMTP: ${{ secrets.EMAIL_SMTP }}
-          EMAIL_PORTA: ${{ secrets.EMAIL_PORTA }}
+        run: |
+            sed -i "s/\${DB_SERVER}/${{ secrets.DB_SERVER }}/g" ./app/appsettings.json
+            sed -i "s/\${DB_PORT}/${{ secrets.DB_PORT }}/g" ./app/appsettings.json
+            sed -i "s/\${DB_USERNAME}/${{ secrets.DB_USERNAME }}/g" ./app/appsettings.json
+            sed -i "s/\${DB_PASSWORD}/${{ secrets.DB_PASSWORD }}/g" ./app/appsettings.json
+            sed -i "s/\${DB_NAME}/${{ secrets.DB_NAME }}/g" ./app/appsettings.json
+            sed -i "s/\${EMAIL_REMETENTE}/${{ secrets.EMAIL_REMETENTE }}/g" ./app/appsettings.json
+            sed -i "s/\${EMAIL_DESTINATARIO}/${{ secrets.EMAIL_DESTINATARIO }}/g" ./app/appsettings.json
+            sed -i "s/\${EMAIL_COPIA}/${{ secrets.EMAIL_COPIA }}/g" ./app/appsettings.json
+            sed -i "s/\${EMAIL_SMTP}/${{ secrets.EMAIL_SMTP }}/g" ./app/appsettings.json
+            sed -i "s/\${EMAIL_PORTA}/${{ secrets.EMAIL_PORTA }}/g" ./app/appsettings.json
+
+      - name: Show replaced appsettings.json
+        run: cat ./app/appsettings.json
 
       - name: Docker Login
         uses: docker/login-action@v2
