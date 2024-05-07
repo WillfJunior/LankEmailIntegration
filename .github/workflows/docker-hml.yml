@@ -53,3 +53,17 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: willfjr86/lankmailintegrationhml:latest
+
+  merge_to_master:
+      if: ${{ github.event.workflow_run.conclusion == 'success' }}
+      runs-on: ubuntu-latest
+      steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Merge develop into master
+        run: |
+          git fetch --no-tags --prune --depth=1 origin +refs/heads/master:refs/remotes/origin/master
+          git checkout master
+          git merge --ff-only origin/develop
+          git push origin master
