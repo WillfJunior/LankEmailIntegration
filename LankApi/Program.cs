@@ -20,6 +20,8 @@ builder.Services.AddCors();
 
 builder.Configuration.AddEnvironmentVariables();
 
+builder.Services.AddHealthChecks();
+
 var app = builder.Build();
 
 
@@ -43,12 +45,7 @@ app.UseRouting();
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
-// app.MapGet("/", () =>
-// {
-//     var contentRoot = builder.Environment.ContentRootPath;
-//     var indexHtmlPath = Path.Combine(contentRoot, "wwwroot", "index.html");
-//     return File.ReadAllText(indexHtmlPath);
-// });
+app.MapHealthChecks("/health");
 
 app.MapPost("/notas", async (Notas notas, IEmailService _emailService) =>
 {
