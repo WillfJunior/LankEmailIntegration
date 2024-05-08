@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lankmailintegration-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lankmailintegration
+  template:
+    metadata:
+      labels:
+        app: lankmailintegration
+    spec:
+      containers:
+        - name: lankmailintegration
+          image: gcr.io/daring-phoenix-422721-u2/lankmailintegration:latest
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              cpu: "1" # limite de CPU em cores
+              memory: "512Mi" # limite de memória em megabytes
+            requests:
+              cpu: "0.5" # solicitação de CPU em cores
+              memory: "256Mi" # solicitação de memória em megabytes
