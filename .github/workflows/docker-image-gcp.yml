@@ -75,7 +75,15 @@ jobs:
       - name: Push Docker image to Google Container Registry (GCR)
         run: docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/lankmailintegration:latest
 
+      - name: Set up kubeconfig
+        run: echo "${{ secrets.KUBE_CONFIG_DATA }}" > kubeconfig.yaml
+        env:
+            KUBECONFIG: kubeconfig.yaml
+
+
       - name: Apply Kubernetes manifests
         run: |
               kubectl apply -f ./deployment.yml --validate=false
               kubectl apply -f ./service.yml
+        env:
+          KUBECONFIG: kubeconfig.yaml
